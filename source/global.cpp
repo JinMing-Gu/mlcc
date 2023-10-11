@@ -81,7 +81,7 @@ int main(int argc, char **argv)
     ros::Publisher pub_surf3 = nh.advertise<sensor_msgs::PointCloud2>("/map_surf3", 100);
 
     string data_path, log_path;
-    int max_iter, base_lidar, ref_lidar1, ref_lidar2, ref_lidar3 = -1;
+    int max_iter, base_lidar, ref_lidar1, ref_lidar2, ref_lidar3;
     vector<int> ref_lidar;
     double downsmp_base, downsmp_ref;
 
@@ -93,11 +93,13 @@ int main(int argc, char **argv)
     ref_lidar.emplace_back(ref_lidar1);
     nh.getParam("ref_lidar2", ref_lidar2);
     ref_lidar.emplace_back(ref_lidar2);
-    if (ref_lidar3 != -1)
-    {
-        nh.getParam("ref_lidar3", ref_lidar3);
-        ref_lidar.emplace_back(ref_lidar3);
-    }
+    nh.getParam("ref_lidar3", ref_lidar3);
+    ref_lidar.emplace_back(ref_lidar3);
+    // if (ref_lidar3 != -1)
+    // {
+    //     nh.getParam("ref_lidar3", ref_lidar3);
+    //     ref_lidar.emplace_back(ref_lidar3);
+    // }
     nh.getParam("voxel_size", voxel_size);
     nh.getParam("eigen_threshold", eigen_thr);
     nh.getParam("downsample_base", downsmp_base);
